@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Hang (with) your friends in the terminal!",
   "main": "dist/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
