@@ -1,6 +1,7 @@
 import hangman from './hangman.js';
 import enquirer from 'enquirer'
 import { getRandomWord } from './word.js';
+import chalk from 'chalk';
 
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
@@ -84,17 +85,22 @@ function draw(context: GameContext): void {
     console.clear();
     console.log(hangman[context.failedAttempts]);
     process.stdout.cursorTo(16, 5);
-    console.log(context.wordProgress.split('').join(' '));
+
+    console.log(context.wordProgress.split('')
+        .map(l => l == '_' ? chalk.gray(l) : l)
+        .join(' '));
     console.log('\n');
+
     if (context.usedLetters.length > 0)
-        console.log(`Used letters: ${context.usedLetters.join(', ')}`);
+        console.log(chalk.gray(`Used letters: ${context.usedLetters.join(', ')}`));
+    
     console.log('\n\n');
 
     if (context.currentState == 'won') {
-        console.log('Congratulations! You won!');
+        console.log(chalk.yellow('Congratulations! You won!'));
     }
     else if (context.currentState == 'lost') {
-        console.log(`You lost! The word was ${context.currentWord}`);
+        console.log(chalk.yellow(`You lost! The word was ${context.currentWord}`));
     }
 }
 
